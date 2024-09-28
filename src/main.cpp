@@ -14,6 +14,9 @@ competition Competition;
 // this is an enumerator (word that resolves into an int) 
 // it will hold an integer that represents what auto to run in autonomous
 autos::select autoSelect;
+// potentiometer
+potV2 potentiometer = potV2(port::pot);
+
 
 /*----------------------------------------------------------------------------*/
 /* this function when the program turns on                                    */
@@ -21,7 +24,23 @@ autos::select autoSelect;
 /* initialize sensors, subsystems, etc                                        */
 /*----------------------------------------------------------------------------*/
 void pre_auton(void) {
+  base.init();
+  intake.init();
 
+  while(true) {
+    Brain.Screen.clearScreen(); 
+    Brain.Screen.setCursor(1, 3);
+    Brain.Screen.print("left");
+    Brain.Screen.setCursor(2, 3);
+    Brain.Screen.print("right");
+    Brain.Screen.setCursor(3, 3);
+    Brain.Screen.print("dead");
+    Brain.Screen.setCursor(4, 3);
+    Brain.Screen.print("dead");    
+    Brain.Screen.setCursor( potentiometer.angle(deg) , 1);
+    Brain.Screen.print("~");
+    wait(20, msec);    
+  }
 }
 
 /*----------------------------------------------------------------------------*/
@@ -30,20 +49,29 @@ void pre_auton(void) {
 /* initialize sensors, subsystems, etc                                        */
 /*----------------------------------------------------------------------------*/
 void autonomous(void) {
-  // this just means you don't have to write select::left instead of autos::select::left etc.
-  // when used within brackets, the namespace only applies within the brackets of the "autonomous" function
-  using namespace autos;
-
-  // the switch statement is like a long if-elif-elif... statement
+  // the run the corresponding autonomous
   switch(autoSelect) {
-    case select::left : left(); break;
+    case autos::select::left : autos::left(); break;
+    case autos::select::right : autos::right(); break;
+    case autos::select::dead : autos::dead(); break;
+    case autos::select::skills : autos::skills(); break;
+    default : break;
   }
-  right();    
-
 }
 
 void usercontrol(void) {
   while(1) {
+    // drive
+    base.teleop(master.Axis3.value()/127, master.Axis1.value()/127);
+    // intake
+    if      (master.ButtonR1.pressing()) intake.in();
+    else if (master.ButtonR2.pressing()) intake.out();
+    else    intake.stop();
+    // clamp
+    if      (master.ButtonL1.pressing()) intake.clamp();
+    else if (master.ButtonL1.pressing()) intake.unclamp();
+    else    intake.stop();
+    // sleep
     wait(20, msec); 
   }
 }

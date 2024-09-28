@@ -67,8 +67,8 @@ bool Base::moveTo(double position, double speed) {
 }
 
 /* @brief arcade drive for teleop 
- * @param y (+y = forward) (-y = backward) and (range = -1 ~ 1)
- * @param x (+w = right) (-w = left) and (range = -1 ~ 1)
+ * @param y (-1 backward ~ 1 forward)
+ * @param x (-1 left ~ 1 right)
  */
 void Base::teleop(double y, double w) {
     double right = y + w;

@@ -2,9 +2,9 @@
 #define SUBSYSTEMS
 
     #include "base.h"
-    #include "climb.h"
     #include "intake.h"
 
     Base base;
+    Intake intake;
 
 #endif
