@@ -28,6 +28,8 @@ void pre_auton(void) {
   intake.init();
 
   while(true) {
+    // pot returns (0 ~ 250), four autos so 250/4 = 60.~ 
+    autoSelect = (autos::select)(potentiometer.angle(deg)/60 + 1);
     Brain.Screen.clearScreen(); 
     Brain.Screen.setCursor(1, 3);
     Brain.Screen.print("left");
@@ -36,8 +38,8 @@ void pre_auton(void) {
     Brain.Screen.setCursor(3, 3);
     Brain.Screen.print("dead");
     Brain.Screen.setCursor(4, 3);
-    Brain.Screen.print("dead");    
-    Brain.Screen.setCursor( potentiometer.angle(deg) , 1);
+    Brain.Screen.print("skills");    
+    Brain.Screen.setCursor(autoSelect , 1);
     Brain.Screen.print("~");
     wait(20, msec);    
   }
