@@ -17,3 +17,29 @@ namespace port {
 double wrap(double current, double desired);
 
 double bound(double angle);
+
+double fitToRange(double value, double min, double max);
+
+double inRange(double value, double setpoint, double threshold);
+
+class PID {
+  private:
+    double p;
+    double i;
+    double d;
+    double f;
+    double lastTime;
+    double lastError;
+    double accum;
+    // reset control
+    bool init = true;
+    // range
+    bool range = false;
+    double min;
+    double max;
+  public:
+    PID(double p, double i, double d, double f);
+    PID(double p, double i, double d, double f, double min, double max);
+    double get(double position, double setpoint);
+    void reset();
+};

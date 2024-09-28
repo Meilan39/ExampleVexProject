@@ -1,27 +1,45 @@
 #include "vex.h"
+#include "subsystems/subsystems.h"
+#include "autonomous/autonomous.h"
 
-using namespace vex;
+// this just means you do not have can write pct instead of vex::percentUnits::pct, etc.
+using namespace vex; 
 
-// A global instance of competition
+/*----------------------------------------------------------------------------*/
+/* define global variables here (refrain from making too many)                */
+/*----------------------------------------------------------------------------*/
+
+// this facilitates competition scheduling (do not delete)
 competition Competition;
+// this is an enumerator (word that resolves into an int) 
+// it will hold an integer that represents what auto to run in autonomous
+autos::select autoSelect;
 
-// define your global instances of motors and other devices here
-
-/*---------------------------------------------------------------------------*/
-/*                          Pre-Autonomous Functions                         */
-/*                                                                           */
-/*  You may want to perform some actions before the competition starts.      */
-/*  Do them in the following function.  You must return from this function   */
-/*  or the autonomous and usercontrol tasks will not be started.  This       */
-/*  function is only called once after the V5 has been powered on and        */
-/*  not every time that the robot is disabled.                               */
-/*---------------------------------------------------------------------------*/
-
+/*----------------------------------------------------------------------------*/
+/* this function when the program turns on                                    */
+/* ensure that there are no infinite loops here                               */
+/* initialize sensors, subsystems, etc                                        */
+/*----------------------------------------------------------------------------*/
 void pre_auton(void) {
 
 }
 
+/*----------------------------------------------------------------------------*/
+/* this function runs when the competition switch enables autonomous          */
+/* ensure that there are no infinite loops here                               */
+/* initialize sensors, subsystems, etc                                        */
+/*----------------------------------------------------------------------------*/
 void autonomous(void) {
+  // this just means you don't have to write select::left instead of autos::select::left etc.
+  // when used within brackets, the namespace only applies within the brackets of the "autonomous" function
+  using namespace autos;
+
+  // the switch statement is like a long if-elif-elif... statement
+  switch(autoSelect) {
+    case select::left : left(); break;
+  }
+  right();    
+
 }
 
 void usercontrol(void) {
