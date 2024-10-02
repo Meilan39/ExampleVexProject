@@ -23,6 +23,8 @@ void Base::init() {
     FL.setStopping(brake);
     RR.setStopping(brake);
     RL.setStopping(brake);
+    MR.setStopping(brake);
+    ML.setStopping(brake);
     // wait for the inertial sensor to stop calibrating
     while(Inertial.isCalibrating()) {wait(100, msec);}
 }
@@ -47,20 +49,23 @@ bool Base::rotateTo(double angle) {
 }
 
 /* @brief move the drive base forward or backward by "position" at "speed" 
- * @param position position in degrees to rotate the drive motors to
+ * @param position position in centimeters to move the drive
  * @param speed in rotations per minute
  * @return boolean for if the drive is moving or not
  */
 bool Base::moveTo(double position, double speed) {
     if(moving) { // if the drive is moving
-        moving = (FR.isSpinning()||FL.isSpinning()||RR.isSpinning()||RL.isSpinning());
+        moving = (FR.isSpinning()||FL.isSpinning()||RR.isSpinning()||RL.isSpinning()||MR.isSpinning()||ML.isSpinning());
         return moving;
     } else { // if the drive is not moving
+        position /= CIRCUMFERENCE;
         speed *= MAX_RPM;
-        FR.spinToPosition(position, deg, speed, rpm, false);
-        FL.spinToPosition(position, deg, speed, rpm, false);
-        RR.spinToPosition(position, deg, speed, rpm, false);
-        RL.spinToPosition(position, deg, speed, rpm, false);
+        FR.spinToPosition(position, rev, speed, rpm, false);
+        FL.spinToPosition(position, rev, speed, rpm, false);
+        RR.spinToPosition(position, rev, speed, rpm, false);
+        RL.spinToPosition(position, rev, speed, rpm, false);
+        MR.spinToPosition(position, rev, speed, rpm, false);
+        ML.spinToPosition(position, rev, speed, rpm, false);
         moving = true;
         return true;        
     }
@@ -80,4 +85,6 @@ void Base::teleop(double y, double w) {
     FL.spin(forward, left , rpm);
     RR.spin(forward, right, rpm);
     RL.spin(forward, left , rpm); 
+    MR.spin(forward, right, rpm);
+    ML.spin(forward, left , rpm); 
 }

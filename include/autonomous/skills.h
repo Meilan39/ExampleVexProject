@@ -5,10 +5,9 @@
     #include "subsystems/subsystems.h"
 
     namespace autos {
-        
-        void skills() {
 
-        }
+        void skills() {}
+        
     }
 
 #endif

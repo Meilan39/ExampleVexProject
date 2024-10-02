@@ -5,7 +5,11 @@
     #include "subsystems/subsystems.h"
 
     namespace autos {
-        void dead() {}
+
+        void dead() {
+            
+        }
+
     }
 
 #endif

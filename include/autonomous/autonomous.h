@@ -2,17 +2,23 @@
 #define AUTONOMOUS
 
 #include "dead.h"
-#include "left.h"
-#include "right.h"
+#include "red_left.h"
+#include "red_right.h"
+#include "blue_left.h"
+#include "blue_right.h"
 #include "skills.h"
 
 namespace autos {
+
     enum class select {
-        left = 0,
-        right = 1,
-        dead = 2,
-        skills = 3
+        red_left = 1,
+        red_right = 2,        
+        blue_left = 3,
+        blue_right = 4,
+        dead = 5,
+        skills = 6
     };
+
 }
 
 #endif

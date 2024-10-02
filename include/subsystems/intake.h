@@ -2,16 +2,16 @@
 #define INTAKE
 
     #include "vex.h"
-
+    
     using namespace vex;
 
     class Intake {
      private:
         vex::motor intake {port::intake};
-        vex::pneumatics clampL {port::clampL};
-        vex::pneumatics clampR {port::clampR};
+        vex::motor conveyor {port::conveyor};
+        vex::pneumatics clampP {Brain.ThreeWirePort.A};
         // clamp state to save air?
-        bool clampState = false;
+        bool clampState = true;
      public:
         void init();
         void stop();
