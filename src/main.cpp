@@ -14,6 +14,7 @@ competition Competition;
 // global instances of brain and controller
 brain Brain;
 controller master;
+pneumatics clampP = pneumatics(Brain.ThreeWirePort.A);
 // this is an enumerator (word that resolves into an int) 
 // it will hold an integer that represents what auto to run in autonomous
 autos::select autoSelect;

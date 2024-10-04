@@ -9,7 +9,6 @@
      private:
         vex::motor intake {port::intake};
         vex::motor conveyor {port::conveyor};
-        vex::pneumatics clampP {Brain.ThreeWirePort.A};
         // clamp state to save air?
         bool clampState = true;
      public:

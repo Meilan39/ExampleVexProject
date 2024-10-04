@@ -9,6 +9,8 @@
 extern vex::brain Brain;
 extern vex::controller master;
 
+extern vex::pneumatics clampP;
+
 #ifndef HELPERS
 #define HELPERS
 
